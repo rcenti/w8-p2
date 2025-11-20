@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PDM1 - W8P2 - Exercise 1.2</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="../lib/main-styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script src="../lib/libraries/p5.min.js"></script>
+  </head>
+
+  <body>
+    <h1>Exercise 1.2</h1>
+    <p>Your sketch:</p>
+    <div class="guidance">
+        <h2>Instructions</h2>
+        <div>
+            <p>The assets folder contains a .txt file called hamlet.txt (the same file used as an 
+                example in lecture). hamlet.txt contains the full text of Shakespeare's Hamlet and some preamble text. Your task is to do some light analysis of hamlet.txt and visualise the results as a simplified 
+                word cloud. In a word cloud, the size of a word reflects its frequency in a text--the bigger the 
+                word, the more frequent it is.
+            </p>
+            <p>Create a canvas at a size of your choosing and use <code>loadStrings()</code> to read the contents of hamlet.txt into 
+            the sketch.</p>
+            <p>Write a function called <code>getWords</code> that takes one argument, an array of strings, and returns an array of all "words" in the 
+            array of strings. In this context, a word is any string of letters or numbers excluding spaces and punctuation. For example, the 
+            line, "'Tis now struck 12. Get thee to bed, Francisco.", contains 9 words: "Tis", "now", "struck", "12", "Get", 
+            "thee", "to", "bed", and "Francisco". Here is an example of how the function will be used:</p>
+            <pre>let words = getWords(hamletText);</pre>
+            <p>...where <code>hamletText</code> is the array of strings returned by <code>loadStrings()</code> when hamlet.txt is 
+            read in to the sketch. <code>words</code> should be an array of 35135 strings.</p>
+            <p>Next, write a function called <code>countOccurrences</code> that takes two parameters. The first parameter should be an 
+            array of words (as defined above) and the second parameter is a word to search for in the array. The function should return 
+        the number of times the search word occurs in the array of words. The function should be case insensitive (e.g. "Hamlet" is equivalent to "hamlet"). 
+    The function should also match whole words only. For example, if the search word is "Hamlet" and the array of words contains "Hamlets", "Hamlets" 
+would not be considered an occurrence of "Hamlet".</p>
+            <p>The check file for this exercise will test <code>getWords()</code> and <code>countOccurrences()</code>. Once you have confirmed that 
+            both functions are working correctly, use them to create a visualisation that shows the frequency of each of the following names in hamlet.txt:</p>
+            <ul>
+                <li>Hamlet</li>
+                <li>Ophelia</li>
+                <li>Horatio</li>
+                <li>Denmark</li>
+            </ul>
+            <p>You can choose exactly how to visualise the frequencies.</p>
+            <p>See the Hint section below for help with common errors.</p>
+            <p>When you are done, check your work using <a href="./check-exercise1-2.html">check-exercise1-2.html</a>.</p>
+            <p>Expected output:</p>
+            <p>
+                <img src="assets/exercise1-2.png" width="300px" alt="The names are visualised using font size to show frequency.">
+            </p>
+        </div>
+        <div>
+            <button class="btn btn-primary hint" type="button" data-bs-toggle="collapse" data-bs-target="#hint" aria-expanded="false" aria-controls="hint">
+                Hint
+            </button>
+            <div class="collapse" id="hint">
+                <div class="card card-body">
+                    <h3>Implementing <code>getWords</code></h3>
+                    <p>Use the <a href="https://p5js.org/reference/p5/splitTokens" target="_blank"><code>splitTokens()</code></a> function to 
+                    split each line in the file by spaces and punctuation. You will need to use a for loop and split each element in the 
+                    array passed to the function. You will need a second for loop to iterate through the array of words created by 
+                    <code>splitTokens()</code> and add each word to an array that stores the words found on all lines.</p>
+                    <p>Some punctuation used in <code>splitTokens()</code> will cause an error. These characters need to be "escaped". Here are some tips for addressing these errors:</p>
+                    <ul>
+                        <li>If you get a "SyntaxError: Invalid regular expression" error and the error message includes the phrase, "Range out of order in character class", it is probably caused by a 
+                            hyphen in the delimiter string. Escape the hyphen by putting <strong>two</strong> backslashes immediately before it 
+                            in the delimeter string e.g. <code>"\\-"</code>. This error occurs because the hyphen is used in a special way by the <code>splitTokens()</code> 
+                            function. Adding the backslashes tells p5.js you really want to split on a hyphen!
+                        </li>
+                        <li>To include a quote mark that matches the type of quote you're using to create the delimiter string, put a backslash immediately before the quote in the delimiter e.g.:<code>"\""</code> or <code>'\''</code>.</li>
+                        <li>To include a backslash in the delimiter string, you will need to escape it with <strong>three</strong> additional backslashes e.g. <code>"\\\\"</code>. The last backslash while be used as a delimiter.</li>
+                    </ul>
+                    <p>To help you put the above points together, here is what <code>splitTokens</code> would look like with all the characters discussed in the bullet points:</p>
+                    <pre>splitTokens(someStr, "\\-\"\\\\");</pre>
+                    <p>... this would split <code>someStr</code> whenever the following characters are found: <code>-</code>, <code>"</code>, and <code>\</code>.</p>
+                    <h3>Implementing <code>countOccurrences</code></h3>
+                    <p>Use a for loop to iterate through each word in the array of words passed to the function as an argument. If 
+                        a word is equal to the search word supplied as the second function argument, increase the count. To make the 
+                        function case insensitive, consider converting both the search word and the words in the array <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/toLowerCase" 
+                        target="_blank">to lower case</a> before comparing.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="sketch.js"></script>
+  </body>
+</html>

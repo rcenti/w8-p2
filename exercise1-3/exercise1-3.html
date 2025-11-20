@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PDM1 - W8P2 - Exercise 1.3</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="../lib/main-styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script src="../lib/libraries/p5.min.js"></script>
+  </head>
+
+  <body>
+    <h1>Exercise 1.3</h1>
+    <p>Your sketch:</p>
+    <div class="guidance">
+        <h2>Instructions</h2>
+        <div>
+            <p>The assets folder contains two .txt files. Each of these files describes the location of 
+                image sprites in a scene (see the images below). The sprite images 
+                are also stored in the assets folder. Each line in a scene text file includes 
+                the name of a sprite and its x and y coordinates separated by commas. For example, the last 
+                line in scene1.txt is:
+            </p>
+            <pre>foxcat,20,240</pre>
+            <p>This means that foxcat.png should be displayed at 20, 240 on the canvas.</p>
+            <p><code>sketch.js</code> contains most of the code for creating the scene. Your task is to complete 
+            the <code>createSprites()</code> function to parse the information in a scene text file to display 
+            the sprites and create the scene. For each line in the file, your code should create a new instance 
+        of the <code>Sprite</code> class and push it to the <code>sprites</code> global array.</p>
+            <p>The first step is to split the text in each line into its component parts. Remember that all parts of 
+                the text will be string data types, even the numbers. You can convert a numeric strings, e.g. "20", to 
+                an integer using JavaScript's <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/parseInt" target="_blank"><code>parseInt()</code></a> function.
+            </p>
+            <p><strong><em>Read the existing code before starting to write your own!</em> There is no need to edit or add any 
+            code outside of the <code>createSprites()</code> function.</strong></p>
+            <p>Your code should work for both scene text files. Test it out by loading scene2.txt instead of scene1.txt.</p>
+            <p>When you are finished, check your work using <a href="./check-exercise1-3.html">check-exercise1-3.html</a>.</p>
+            <p>Expected output (scene1.txt):</p>
+            <p>
+                <img src="assets/exercise1-3-scene1.png" alt="The scene created by scene1.txt" width="300px" height="300px">
+            </p>
+            <p>Expected output (scene2.txt):</p>
+            <p>
+                <img src="assets/exercise1-3-scene2.png" alt="The scene created by scene2.txt" width="300px" height="300px">
+            </p>
+        </div>
+        <div>
+            <button class="btn btn-primary hint" type="button" data-bs-toggle="collapse" data-bs-target="#hint" aria-expanded="false" aria-controls="hint">
+                Hint
+            </button>
+            <div class="collapse" id="hint">
+                <div class="card card-body">
+                    <p>You only need to add code inside the <code>createSprites()</code> function.</p>
+                    <p>You will need a <code>for</code> loop to iterate through each line in the <code>tiles</code> 
+                    parameter, which contains the lines of the loaded scene text file.</p>
+                    <p>Inside the for loop, use the <a href="https://p5js.org/reference/p5/split" target="_blank"><code>split()</code></a> function 
+                    to separate the data stored in each line.</p>
+                    <p>Convert the numeric data in the array returned by <code>split()</code> into whole numbers using the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/parseInt" target="_blank"><code>parseInt()</code></a> function.</p>
+                    <p>Use the data to create a new <code>Sprite</code> object. All the information you need on how to do this is present in the code. You will 
+                    need a conditional to determine which image to pass to the <code>Sprite</code> constructor. For example, if the sprite name in the 
+                    text file is "grass", you should pass the <code>grass</code> image object.</p>
+                    <p>Finally, add the new <code>Sprite</code> to the <code>sprites</code> array.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="sketch.js"></script>
+  </body>
+</html>

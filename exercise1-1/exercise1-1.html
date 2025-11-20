@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PDM1 - W8P2 - Exercise 1.1</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="../lib/main-styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script src="../lib/libraries/p5.min.js"></script>
+  </head>
+
+  <body>
+    <h1>Exercise 1.1</h1>
+    <p>Your sketch:</p>
+    <div class="guidance">
+        <h2>Instructions</h2>
+        <div>
+            <p>The assets folder contains a .txt file called imdb_labelled.txt. This 
+                file contains part of a dataset commonly used to train machine learning models 
+                to detect the sentiment of a text. Each line of the file contains a user 
+                review of a film from imdb.com followed by a number, either 0 or 1. The number 
+                is the "label" of the review. 0 means the review is negative, 1 means the 
+                review is positive.
+            </p>
+            <p>Use the <code>loadStrings()</code> function to read the contents of the file into an 
+            array. You may find it helpful to test that the file is read by printing a line from the file 
+        to the console.</p>
+            <p>Next, display a random review (just the text, not the label), whenever the 
+                user presses a key. It should be possible to visually distinguish positive reviews 
+                from negative reviews. For example, you could use different colours or fonts for each 
+                category of review.
+            </p>
+            <h3>A note on using <code>split()</code> for this exercise</h3>
+            <p>To separate the review label from the text, you can use the <a href="https://p5js.org/reference/p5/split" target="_blank"><code>split()</code></a> 
+            function. Unlike the examples shown in class, the review text and label are separated by a tab. To split on a 
+            tab, use the tab escape sequence, <code>\t</code>. E.g.</p>
+            <pre>let parts = split(someString, "\t");</pre>
+            <p>After splitting a line of text, you will need to workout whether the review is positive or negative based 
+                on the value of <code>parts[1]</code>. Remember that <code>parts[1]</code> will be a string, either "1" or "0".
+            </p>
+            <p>When you are done, check your work using <a href="./check-exercise1-1.html">check-exercise1-1.html</a>.</p>
+            <p>Expected output:</p>
+            <p>
+                <video width="400" height="300" controls>
+                    <source src="./assets/exercise1-1.mov" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </p>
+        </div>
+        <div>
+            <button class="btn btn-primary hint" type="button" data-bs-toggle="collapse" data-bs-target="#hint" aria-expanded="false" aria-controls="hint">
+                Hint
+            </button>
+            <div class="collapse" id="hint">
+                <div class="card card-body">
+                    <h3>Selecting a random index</h3>
+                    <p>The <a href="https://p5js.org/reference/p5/floor" target="_blank"><code>floor()</code></a> function will be useful when picking 
+                    a random review. Remember that the <a href="https://p5js.org/reference/p5/random" target="_blank"><code>random()</code></a> function 
+                    always returns a float but array indices are always integers. You can use <a href="https://p5js.org/reference/p5/floor" target="_blank"><code>floor()</code></a> to 
+                    round a random float to the nearest integer less than or equal to the float.</p>
+                    <h3>Parsing the text from the file</h3>
+                    <p>Once the file has been read to an array using <code>loadStrings()</code>, there are several ways to achieve the expected output 
+                        using only concepts covered in the module so far. Here are two possibilities:</p>
+                    <ul>
+                        <li>You could leave the array containing the raw reviews as it is. Then, when a random review 
+                            is selected for display, use <a href="https://p5js.org/reference/p5/split" target="_blank"><code>split()</code></a>  to separate 
+                            the review text and the label. You could then determine the styling for the text based on the 
+                            review label.
+                        </li>
+                        <li>Another (better) approach is to write a custom <code>Review</code> class with a property for the 
+                        review text and a property for the review sentiment. The class constructor can separate the review text 
+                        and label. In <code>setup()</code>, you can convert each 
+                        element in the array storing the raw strings read from the file to a Review object. You can then use the 
+                        randomly selected Review's own properties to figure out how to display it.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="sketch.js"></script>
+  </body>
+</html>
